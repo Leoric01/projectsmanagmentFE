@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 const Navbar = () => {
     const navigate = useNavigate();
     return (
-        <div className="border-b py-4 px-5 flex items-center justify-between">
+        <div className="border-b py-4 px-5 flex justify-between">
             <div className="flex items-center gap-3">
                 <p onClick={() => navigate("/")} className="cursor-pointer">Project Management</p>
                 <Dialog>
@@ -22,7 +22,7 @@ const Navbar = () => {
                         <CreateProjectForm className="flex flex-col g-4"/>
                     </DialogContent>
                 </Dialog>
-                <Button variant="ghost">Upgrade Plan</Button>
+                <Button onClick={() => navigate("/upgrade_plan")} variant="ghost">Upgrade Plan</Button>
             </div>
             <div className="flex items-center gap-3">
                 <DropdownMenu>
