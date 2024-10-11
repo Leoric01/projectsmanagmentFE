@@ -1,6 +1,8 @@
 import {useParams} from "react-router-dom";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import CreateCommentForm from "@/pages/IssueDetails/createcommentform";
+import CommentCard from "@/pages/IssueDetails/commentcard";
 
 
 const IssueDetails = () => {
@@ -8,7 +10,7 @@ const IssueDetails = () => {
     return (
         <div className="px-20 py-8 text-gray-400">
             <div className="flex justify-between border p-10 rounded-lg">
-                <ScrollArea className="h-[78vh] w-[60%]">
+                <ScrollArea className="h-[78vh] w-[80%]">
                     <div>
                         <h1 className="text-lg font-semibold text-gray-400">create navbar</h1>
                         <div className="py-5">
@@ -36,7 +38,13 @@ const IssueDetails = () => {
                                     all Make changes to your account here
                                 </TabsContent>
                                 <TabsContent value="comments">
-                                    comments Make changes to your account here
+                                    <CreateCommentForm issueId={issueId}/>
+                                    <div className="mt-8 space-y-6">
+                                        {[1, 2, 3].map((item) => (
+                                                <CommentCard key={item}/>
+                                            )
+                                        )}
+                                    </div>
                                 </TabsContent>
                                 <TabsContent value="history">
                                     history Make changes to your account here
