@@ -24,8 +24,8 @@ const ProjectList = () => {
     return (
         <>
             <div>ProjectList</div>
-            <div className="relative px-5 lg:px-0 lg:flex gap-5 justify-center py-5">
-                <section className="filterSection">
+            <div className="relative px-5 lg:px-0 lg:flex gap-5 justify-items-start py-5">
+                <section className="filterSection ml-4">
                     <Card className="sticky p-5 top-10">
                         <div className="flex justify-between lg:w-[20rem]">
                             <p className="text-xl -tracking-wider">filters</p>

@@ -16,7 +16,7 @@ const ProjectDetails = () => {
         <>
             <div className="mt-5 lg:px-8">
                 <div className="lg:flex gap-5 justify-between pb-4">
-                    <ScrollArea className="h-screen lg:w-[90%] pr-2">
+                    <ScrollArea className="h-screen lg:w-[70%] pr-2">
                         <div className="pb-10 w-full text-gray-400">
                             <h1 className="text-lg font-semibold pb-5">Create Ecommerce Website</h1>
 
@@ -67,7 +67,7 @@ const ProjectDetails = () => {
                             </div>
                             <section>
                                 <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
-                                <div className="lg:flex md:flex gap-3 justify-between py-5">
+                                <div className="lg:flex md:flex gap-3 justify-normal py-5">
 
                                     <IssueList status="pending" title="Todo List"/>
                                     <IssueList status="inprogres" title="In Progress"/>
@@ -77,7 +77,7 @@ const ProjectDetails = () => {
                             </section>
                         </div>
                     </ScrollArea>
-                    <div>
+                    <div className="lg:w-[28%] rounded-md sticky right-1 top-0">
                         <ChatBox/>
                     </div>
                 </div>
