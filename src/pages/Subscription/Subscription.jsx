@@ -21,7 +21,7 @@ const Subscription = () => {
     return (
         <div className="p-10 ">
             <h1 className="text-5xl font-semibold py-5 pb-16 text-center">Pricing</h1>
-            <div className="flex flex-col lg:flex-row justify-center align-top gap-9">
+            <div className="flex flex-wrap justify-start lg:flex-row lg:justify-center  align-top gap-9">
                 <SubscriptionCard
                     data={{
                         planName: "Free",

@@ -15,10 +15,13 @@ const SubscriptionCard = ({data}) => {
                 {data.buttonName}
             </Button>
             <div>
-                <div className="flex align-top gap-2">
-                    <CheckCircledIcon/>
-                    <p>{"features"}</p>
-                </div>
+                {data.features.map((item) => (
+                        <div key={item} className="flex align-top gap-2">
+                            <CheckCircledIcon/>
+                            <p>{item}</p>
+                        </div>
+                    )
+                )}
             </div>
 
         </div>

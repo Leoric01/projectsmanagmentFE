@@ -30,7 +30,7 @@ const ProjectDetails = () => {
                                 <div className="flex">
                                     <p className="w-36">Members: </p>
                                     <div className="flex items-center gap-2">
-                                        {[1, 1, 1, 1, 1].map((item) => (
+                                        {[1, 2, 3, 4, 5].map((item) => (
                                             <Avatar key={item} className="cursor-pointer">
                                                 <AvatarFallback>Z</AvatarFallback>
                                             </Avatar>
