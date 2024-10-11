@@ -1,5 +1,6 @@
 import React from "react";
 import {Card} from "@/components/ui/card";
+import {Badge} from "@/components/ui/badge";
 import {DotFilledIcon, DotsVerticalIcon} from "@radix-ui/react-icons";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
@@ -33,12 +34,15 @@ const ProjectCard = () => {
                         </DropdownMenu>
                     </div>
                 </div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-gray-500 text-sm text-left">
                     <LoremIpsum avgSentencesPerParagraph={1} />
+                </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                    {[1,1,1,1].map((item) => <Badge key={item} variant="outline">Frontend</Badge>)}
                 </div>
             </div>
         </div>
     </Card>
-
 }
+
 export default ProjectCard;
