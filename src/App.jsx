@@ -1,6 +1,7 @@
 import './App.css'
-import Home from "@/pages/Home/Home.jsx";
+import Home from "@/pages/Home/Home";
 import {useState} from "react";
+import Navbar from "@/pages/Navbar/Navbar";
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
 
     return (
         <>
+            <Navbar/>
             <Home/>
         </>
     )
