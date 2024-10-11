@@ -1,22 +1,36 @@
 import SubscriptionCard from "@/pages/Subscription/subscriptioncard";
 
 const monthlyPlan = [
-    "Add unlimited projects",
+    "Add unlimited project",
     "Access to live chat",
-    "Unlimited team members",
+    "Add unlimited team member",
+    "Advanced Reporting",
+    "Priority Support",
+    "Customization Options",
+    "Integration Support",
+    "Advanced Security",
+    "Training and Resources",
+    "Access Control",
+    "Custom Workflows",
 ];
+
 const annualPlan = [
-    "Add unlimited projects",
+    "Add unlimited project",
     "Access to live chat",
-    "Unlimited team members",
-    "All that with 30% off in compare to monthly plan"
-]
+    "Add unlimited team member",
+    "Advanced Reporting",
+    "Priority Support",
+    "Everything which monthly plan has",
+];
+
 const freePlan = [
     "Add only 3 projects",
-    "Cannot access live chat",
-    "Limited team members size to 4"
-]
-
+    "Basic Task Management",
+    "Project Collaboration",
+    "Basic Reporting",
+    "Email Notifications",
+    "Basic Access Control",
+];
 const Subscription = () => {
     return (
         <div className="p-10 ">
