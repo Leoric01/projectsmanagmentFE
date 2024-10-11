@@ -1,15 +1,15 @@
-import { useState } from 'react'
 import './App.css'
-import {Button} from "@/components/ui/button.tsx";
+import Home from "@/pages/Home/Home.jsx";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <Button>shadcn default button</Button>
-    </>
-  )
+    return (
+        <>
+            <Home/>
+        </>
+    )
 }
 
 export default App
