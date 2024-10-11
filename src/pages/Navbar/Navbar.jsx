@@ -1,7 +1,7 @@
-import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import CreateProjectForm from "@/pages/Project/CreateProjectForm";
-import {DropdownMenu, DropdownMenuTrigger,DropdownMenuContent, DropdownMenuItem} from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {PersonIcon} from "@radix-ui/react-icons";
 
 const Navbar = () => {
@@ -14,9 +14,9 @@ const Navbar = () => {
                         <Button variant="ghost">New Project</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <DialogHeader>
+                        <DialogTitle>
                             Create New Project
-                        </DialogHeader>
+                        </DialogTitle>
                         <CreateProjectForm className="flex flex-col g-4"/>
                     </DialogContent>
                 </Dialog>
