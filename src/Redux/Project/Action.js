@@ -84,7 +84,6 @@ export const searchProjectsByKeyword = (keyword) => async (dispatch) => {
 
 export const searchProjects = (keyword) => async (dispatch) => {
     dispatch({type: SEARCH_PROJECT_REQUEST});
-
     try {
         const {data} = await api.get('/api/projects/search?keyword=' + keyword);
         dispatch({type: SEARCH_PROJECT_SUCCESS, projects: data});

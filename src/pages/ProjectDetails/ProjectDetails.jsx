@@ -7,11 +7,21 @@ import {PlusIcon} from "@radix-ui/react-icons";
 import InviteUserForm from "./inviteUserForm";
 import IssueList from "@/pages/ProjectDetails/issuelist";
 import ChatBox from "@/pages/ProjectDetails/chatbox";
+import {useEffect} from "react";
+import {fetchProjectById} from "@/Redux/Project/Action.js";
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 
 const ProjectDetails = () => {
+    const dispatch = useDispatch();
+    const {id} = useParams();
+    const {project} = useSelector((state) => state.project);
     const handleProjectInvitation = () => {
 
     }
+    useEffect(() => {
+        dispatch(fetchProjectById(id));
+    }, [])
     return (
         <>
             <div className="mt-5 lg:px-8">
