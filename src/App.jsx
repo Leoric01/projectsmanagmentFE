@@ -1,17 +1,23 @@
 import './App.css'
 import Home from "@/pages/Home/Home";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Navbar from "@/pages/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import ProjectDetails from "@/pages/ProjectDetails/ProjectDetails";
 import IssueDetails from "@/pages/IssueDetails/issuedetails";
 import Subscription from "@/pages/Subscription/subscription";
-import Auth from "@/pages/Auth/auth";
+import Auth from "./pages/Auth/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {getUser} from "./Redux/Auth/Action";
 
 
 function App() {
     const [count, setCount] = useState(0)
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUser())
+    }, [])
+    const {auth} = useSelector(store => store)
     return (
         <>
             {
