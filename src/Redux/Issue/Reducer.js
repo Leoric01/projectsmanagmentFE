@@ -61,6 +61,9 @@ export const issueReducer = (state = initialState, action) => {
         case types.ASSIGNED_ISSUE_TO_USER_FAILURE:
         case types.FETCH_ISSUES_BY_ID_FAILURE:
         case types.UPDATE_ISSUE_FAILURE:
+            return {
+                state
+            }
 
         default:
             return state;

@@ -17,7 +17,7 @@ export const register = (userData) => async (dispatch) => {
     dispatch({type: REGISTER_REQUEST});
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
-        if (data.response.statusCode === 201) {
+        if (data.HTTP_STATUS_CREATED) {
             dispatch({type: REGISTER_SUCCESS, payload: data});
         }
     } catch (err) {
@@ -30,10 +30,12 @@ export const login = (userData) => async (dispatch) => {
     dispatch({type: LOGIN_REQUEST});
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
-        if (data.jwt) {
-            localStorage.setItem("jwt", data.jwt);
+        if (data.token) {
+            localStorage.setItem("jwt", data.token);
             dispatch({type: LOGIN_SUCCESS, payload: data});
             console.log("Login Success", data);
+        } else {
+            dispatch({type: LOGIN_FAILURE, error: data.message});
         }
     } catch (error) {
         console.error("Login Error: ", error.response?.data || error.message);

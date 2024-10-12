@@ -18,8 +18,21 @@ const Signup = () => {
         }
     });
     const onSubmit = (data) => {
-        dispatch(register(data));
-        console.log("Register user: ", data);
+        const {password, password_confirmation} = data;
+
+        if (password !== password_confirmation) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        const userData = {
+            email: data.email,
+            password: data.password,
+            fullName: data.fullName
+        };
+
+        dispatch(register(userData));
+        console.log("Register user: ", userData);
     };
     return (
         <div className="space-y-5">
