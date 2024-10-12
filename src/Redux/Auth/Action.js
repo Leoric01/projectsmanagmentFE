@@ -33,6 +33,7 @@ export const login = (userData) => async (dispatch) => {
         if (data.token) {
             localStorage.setItem("jwt", data.token);
             dispatch({type: LOGIN_SUCCESS, payload: data});
+            dispatch(getUser());
             console.log("Login Success", data);
         } else {
             dispatch({type: LOGIN_FAILURE, error: data.message});

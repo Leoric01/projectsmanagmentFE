@@ -50,7 +50,7 @@ export const searchProjects = (keyword) => async (dispatch) => {
         dispatch({type: SEARCH_PROJECT_FAILURE, error: err.message});
     }
 };
-export const createProjects = (projectData) => async (dispatch) => {
+export const createProject = (projectData) => async (dispatch) => {
     dispatch({type: CREATE_PROJECT_REQUEST});
     try {
         const {data} = await api.post('/api/projects', projectData);

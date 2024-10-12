@@ -26,15 +26,20 @@ export const authReducer = (state = initialState, action) => {
         case GET_USERS_REQUEST:
             return {...state, loading: true, error: null};
         case LOGIN_SUCCESS:
-            return {...state, loading: false, error: null, jwt: action.payload.jwt};
+            return {...state, loading: false, error: null, jwt: action.payload.token};
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                user: action.payload, // Store fetched user data in state
+                projectSize: action.payload.projectSize, // Assuming this is part of the user profile
+            };
         case REGISTER_SUCCESS:
             return {...state, loading: false, error: null, jwt: null};
         case LOGIN_FAILURE:
         case REGISTER_FAILURE:
         case GET_USER_FAILURE:
             return {...state, loading: false, error: action.payload.error};
-        case GET_USER_SUCCESS:
-            return {...state, loading: true, user: action.payload.user};
         case LOGOUT:
             return initialState;
 
