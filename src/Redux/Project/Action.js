@@ -9,6 +9,9 @@ import {
     DELETE_PROJECT_FAILURE,
     DELETE_PROJECT_REQUEST,
     DELETE_PROJECT_SUCCESS,
+    FETCH_ALL_PROJECTS_FAILURE,
+    FETCH_ALL_PROJECTS_REQUEST,
+    FETCH_ALL_PROJECTS_SUCCESS,
     FETCH_PROJECT_BY_ID_FAILURE,
     FETCH_PROJECT_BY_ID_REQUEST,
     FETCH_PROJECT_BY_ID_SUCCESS,
@@ -18,6 +21,9 @@ import {
     INVITE_TO_PROJECT_FAILURE,
     INVITE_TO_PROJECT_REQUEST,
     INVITE_TO_PROJECT_SUCCESS,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_REQUEST,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS,
     SEARCH_PROJECT_FAILURE,
     SEARCH_PROJECT_REQUEST,
     SEARCH_PROJECT_SUCCESS
@@ -37,17 +43,18 @@ export const fetchProjects = ({category, tag}) => async (dispatch) => {
         dispatch({type: FETCH_PROJECTS_FAILURE, error: err.message});
     }
 };
-
-export const searchProjects = (keyword) => async (dispatch) => {
-    dispatch({type: SEARCH_PROJECT_REQUEST});
-
+export const fetchAllProjects = () => async (dispatch) => {
+    dispatch({type: FETCH_ALL_PROJECTS_REQUEST});
     try {
-        const {data} = await api.get('/api/projects/search?keyword=' + keyword);
-        dispatch({type: SEARCH_PROJECT_SUCCESS, projects: data});
-        console.log("search projects", data);
-    } catch (err) {
-        console.error("Error search for projects: ", err);
-        dispatch({type: SEARCH_PROJECT_FAILURE, error: err.message});
+        const jwt = localStorage.getItem('jwt');
+        const {data} = await api.get(`/api/projects/all`);
+        dispatch({type: FETCH_ALL_PROJECTS_SUCCESS, payload: data});
+    } catch (error) {
+        dispatch({
+            type: FETCH_ALL_PROJECTS_FAILURE,
+            payload: error.response?.data || error.message,
+        });
+        console.error("Fetch Projects Error: ", error.response?.data || error.message);
     }
 };
 export const createProject = (projectData) => async (dispatch) => {
@@ -56,11 +63,38 @@ export const createProject = (projectData) => async (dispatch) => {
         const {data} = await api.post('/api/projects', projectData);
         dispatch({type: CREATE_PROJECT_SUCCESS, project: data});
         console.log("create projects", data);
+        dispatch(fetchAllProjects());
     } catch (err) {
         console.error("Error creating projects: ", err);
         dispatch({type: CREATE_PROJECT_FAILURE, error: err.message});
     }
 };
+export const searchProjectsByKeyword = (keyword) => async (dispatch) => {
+    dispatch({type: SEARCH_ALL_PROJECTS_WITH_KEYWORD_REQUEST});
+
+    try {
+        const {data} = await api.get('/api/projects/search/all?keyword=' + keyword);
+        dispatch({type: SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS, payload: data}); // Dispatch success action
+        console.log("Search Results DATA.PROJECTS: ");
+    } catch (err) {
+        console.error("Error searching for projects by keyword: ", err);
+        dispatch({type: SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE, error: err.message}); // Dispatch failure action
+    }
+};
+
+export const searchProjects = (keyword) => async (dispatch) => {
+    dispatch({type: SEARCH_PROJECT_REQUEST});
+
+    try {
+        const {data} = await api.get('/api/projects/search?keyword=' + keyword);
+        dispatch({type: SEARCH_PROJECT_SUCCESS, projects: data});
+        console.log("DO I GET HERE LOG?", data.projects);
+    } catch (err) {
+        console.error("Error search for projects: ", err);
+        dispatch({type: SEARCH_PROJECT_FAILURE, error: err.message});
+    }
+};
+
 export const fetchProjectById = (id) => async (dispatch) => {
     dispatch({type: FETCH_PROJECT_BY_ID_REQUEST});
     try {

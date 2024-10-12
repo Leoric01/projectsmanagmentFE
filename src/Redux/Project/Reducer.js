@@ -1,14 +1,22 @@
+// noinspection EqualityComparisonWithCoercionJS
+
 import {
     ACCEPT_INVITATION_REQUEST,
     CREATE_PROJECT_REQUEST,
     CREATE_PROJECT_SUCCESS,
     DELETE_PROJECT_REQUEST,
     DELETE_PROJECT_SUCCESS,
+    FETCH_ALL_PROJECTS_FAILURE,
+    FETCH_ALL_PROJECTS_REQUEST,
+    FETCH_ALL_PROJECTS_SUCCESS,
     FETCH_PROJECT_BY_ID_REQUEST,
     FETCH_PROJECT_BY_ID_SUCCESS,
     FETCH_PROJECTS_REQUEST,
     FETCH_PROJECTS_SUCCESS,
     INVITE_TO_PROJECT_REQUEST,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_REQUEST,
+    SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS,
     SEARCH_PROJECT_REQUEST,
     SEARCH_PROJECT_SUCCESS
 } from "./ActionTypes";
@@ -30,16 +38,23 @@ export const projectReducer = (state = initialState, action) => {
         case ACCEPT_INVITATION_REQUEST:
         case INVITE_TO_PROJECT_REQUEST:
         case SEARCH_PROJECT_REQUEST:
+        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null
             }
+        case FETCH_ALL_PROJECTS_REQUEST:
+            return {...state, loading: true, error: null};
+        case FETCH_ALL_PROJECTS_SUCCESS:
+            return {...state, loading: false, projects: action.payload};
+        case FETCH_ALL_PROJECTS_FAILURE:
+            return {...state, loading: false, error: action.payload}
         case FETCH_PROJECTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                projects: action.payload,
+                projects: action.projects,
                 error: null
             }
         case SEARCH_PROJECT_SUCCESS:
@@ -49,6 +64,13 @@ export const projectReducer = (state = initialState, action) => {
                 searchProjects: action.payload,
                 error: null
             }
+        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS: // New success case
+            return {
+                ...state,
+                loading: false,
+                projects: action.payload, // Store new search results
+                error: null
+            };
         case CREATE_PROJECT_SUCCESS:
         case FETCH_PROJECT_BY_ID_SUCCESS:
             return {
@@ -62,10 +84,16 @@ export const projectReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 projects: state.projects.filter(
-                    (project) => project.id === action.projectId
+                    (project) => project.id !== action.projectId
                 ),
                 error: null
             }
+        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE: // New failure case
+            return {
+                ...state,
+                loading: false,
+                error: action.error // Store error message
+            };
         default:
             return state;
     }

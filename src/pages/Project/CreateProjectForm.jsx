@@ -7,9 +7,12 @@ import {Button} from "@/components/ui/button";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {tags} from "@/pages/ProjectList/ProjectList";
 import {Cross1Icon} from "@radix-ui/react-icons";
+import {useDispatch} from "react-redux";
+import {createProject} from "@/Redux/Project/Action";
 
 
 const CreateProjectForm = () => {
+    const dispatch = useDispatch();
 
     const handleTagsChange = (newValue) => {
         const currentTags = form.getValues("tags") || [];
@@ -24,10 +27,11 @@ const CreateProjectForm = () => {
             name: "",
             description: "",
             category: "",
-            tags: ["javascript", "react"]
+            tags: []
         }
     });
     const onSubmit = (data) => {
+        dispatch(createProject(data))
         console.log(data);
     };
     return (

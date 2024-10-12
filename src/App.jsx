@@ -12,16 +12,21 @@ import {getUser} from "./Redux/Auth/Action";
 
 
 function App() {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
     const dispatch = useDispatch();
+
+    const auth = useSelector((state) => state.auth); //
+
     useEffect(() => {
-        dispatch(getUser())
-    }, [])
-    const {auth} = useSelector(store => store)
+        dispatch(getUser());
+    }, [auth.jwt]);
+
+    console.log(auth);
+
     return (
         <>
             {
-                false ? <div>
+                auth.user ? <div>
                     <Navbar/>
                     <Routes>
                         <Route path="/" element={<Home/>}/>

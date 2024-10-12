@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Card, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {MagnifyingGlassIcon, MixerHorizontalIcon} from "@radix-ui/react-icons";
@@ -7,6 +7,8 @@ import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {Label} from "@/components/ui/label"
 import {Input} from "@/components/ui/input";
 import ProjectCard from "@/pages/Project/ProjectCard";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAllProjects, fetchProjects, searchProjectsByKeyword} from "@/Redux/Project/Action";
 
 export const tags = [
     "all", "react", "nextjs", "spring boot", "mysql", "mongodb", "angular", "python", "flask"
@@ -14,13 +16,31 @@ export const tags = [
 
 const ProjectList = () => {
     const [keyword, setKeyword] = React.useState("");
-
-    const handleFilterChange = (section, value) => {
-        console.log("value", value, section);
-    };
+    const dispatch = useDispatch();
+    const {projects, searchProjects} = useSelector((state) => state.project);
     const handleSearchChange = (e) => {
-        setKeyword(e.target.value)
+        const value = e.target.value;
+        setKeyword(value);
+        dispatch(searchProjectsByKeyword(value));
     };
+    const handleFilterCategory = (value) => {
+        if (value === "all") {
+            dispatch(fetchAllProjects());
+        } else {
+            dispatch(fetchProjects({category: value}));
+        }
+    };
+    const handleFilterTags = (value) => {
+        if (value === "all") {
+            dispatch(fetchAllProjects());
+        } else {
+            dispatch(fetchProjects({tag: value}));
+        }
+    };
+    useEffect(() => {
+        dispatch(fetchAllProjects());
+    }, [dispatch]);
+
     return (
         <>
             <div>ProjectList</div>
@@ -39,9 +59,9 @@ const ProjectList = () => {
                                     <h1 className="pb-3 text-gray-400 border-b text-left">Category</h1>
                                     <div className="pt-5">
                                         <RadioGroup
-                                            className="space-y-7 pt-5"
+                                            className="space-y-3 pt-5"
                                             defaultValue="all"
-                                            onValueChange={(value) => handleFilterChange("category", value)}>
+                                            onValueChange={(value) => handleFilterCategory(value)}>
                                             <div className="flex items-center gap-2">
                                                 <RadioGroupItem value="all" id="r1"/>
                                                 <Label htmlFor="r1">all</Label>
@@ -67,7 +87,7 @@ const ProjectList = () => {
                                         <RadioGroup
                                             className="space-y-7 pt-5"
                                             defaultValue="all"
-                                            onValueChange={(value) => handleFilterChange("tag", value)}>
+                                            onValueChange={(value) => handleFilterTags(value)}>
                                             {tags.map((item) => (
                                                 <div key={item} className="flex items-center gap-2">
                                                     <RadioGroupItem value={item} id={`r1-${item}`}/>
@@ -84,15 +104,21 @@ const ProjectList = () => {
                 <section className="projectListSection w-full lg:w-[48rem]">
                     <div className="flex gap-2 items-center pb-5 justify-between">
                         <div className="relative p-0 w-full">
-                            <Input className="40% px-9" placeholder="Search by category" onChange={handleSearchChange} />
+                            <Input
+                                className="40% px-9"
+                                placeholder="Search by category"
+                                onChange={handleSearchChange}
+                            />
                             <MagnifyingGlassIcon className="absolute top-3 left-4"/>
                         </div>
                     </div>
                     <div>
                         <div className="space-y-5 min-h-[74vh]">
-                            {
-                                keyword ? [1, 2, 3].map((item) => <ProjectCard key={item}/>) :
-                                    [1, 2, 3, 4, 5].map((item) => <ProjectCard key={item}/>)
+                            {keyword.length > 0 && searchProjects && searchProjects.length > 0
+                                ? searchProjects.map((item) => <ProjectCard key={item.id} item={item}/>)
+                                : projects && projects.length > 0
+                                    ? projects.map((item) => <ProjectCard key={item.id} item={item}/>)
+                                    : <p>No projects found.</p>
                             }
                         </div>
                     </div>
