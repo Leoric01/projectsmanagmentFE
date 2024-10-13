@@ -135,10 +135,10 @@ const CreateProjectForm = () => {
                             </FormItem>
                         )}
                     />
-                    <DialogClose>
+                    <DialogClose asChild>
                         {false ? (<div><p>you can create only 3 projects with free plan, upgrade plan</p></div>)
                             : (
-                                <Button type="submit" className="w-full py-5">
+                                <Button type="submit" className="w-[200px] py-5">
                                     Create Project
                                 </Button>)}
                     </DialogClose>

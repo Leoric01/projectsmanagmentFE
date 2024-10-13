@@ -52,7 +52,7 @@ const ProjectDetails = () => {
                                     </div>
                                     <Dialog>
                                         <DialogTrigger>
-                                            <DialogClose>
+                                            <DialogClose asChild>
                                                 <Button className="ml-2" size="sm" variant="outline"
                                                         onClick={handleProjectInvitation}>
                                                     <span>invite</span>
@@ -92,9 +92,9 @@ const ProjectDetails = () => {
                                 <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
                                 <div className="lg:flex md:flex gap-3 justify-normal py-5">
 
-                                    <IssueList status="pending" title="Todo List"/>
-                                    <IssueList status="inprogres" title="In Progress"/>
-                                    <IssueList status="done" title="Done"/>
+                                    <IssueList status="pending" title="Todo List" projectId={id}/>
+                                    <IssueList status="inprogres" title="In Progress" projectId={id}/>
+                                    <IssueList status="done" title="Done" projectId={id}/>
 
                                 </div>
                             </section>

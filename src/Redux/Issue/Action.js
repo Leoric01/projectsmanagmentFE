@@ -31,8 +31,10 @@ export const fetchIssueById = (id) => {
 export const createIssue = (issueData) => {
     return async (dispatch) => {
         dispatch({type: actionTypes.CREATE_ISSUE_REQUEST});
+        console.log("Dispatching CREATE_ISSUE_REQUEST");
         try {
             const response = await api.post(`/api/issue`, issueData);
+            console.log("Response received: ", response.data);  // Log response
             dispatch({type: actionTypes.CREATE_ISSUE_SUCCESS, issue: response.data});
             console.log("Issue created successfully: ", response.data);
         } catch (error) {

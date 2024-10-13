@@ -28,7 +28,6 @@ const ProjectCard = ({ item }) => {
                         <div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    {/* Wrapping the icon directly without a button */}
                                     <span className="cursor-pointer">
                                         <DotsVerticalIcon />
                                     </span>

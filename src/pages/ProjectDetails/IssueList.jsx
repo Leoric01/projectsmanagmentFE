@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 import {PlusIcon} from "@radix-ui/react-icons";
 import CreateIssueForm from "@/pages/ProjectDetails/createissueform";
 
-const IssueList = ({title, status}) => {
+const IssueList = ({title, status, projectId}) => {
     return (
         <div>
             <Dialog>
@@ -35,7 +35,7 @@ const IssueList = ({title, status}) => {
                     <DialogHeader>
                         <DialogTitle>Create new Issue</DialogTitle>
                     </DialogHeader>
-                    <CreateIssueForm/>
+                    <CreateIssueForm projectId={projectId} />
                 </DialogContent>
             </Dialog>
         </div>
