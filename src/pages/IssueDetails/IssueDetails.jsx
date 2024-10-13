@@ -16,9 +16,10 @@ const IssueDetails = () => {
     const {projectId, issueId} = useParams();
     const {issueDetails, loading} = useSelector((state) => state.issue);
 
-    const handleUpdateIssueStatus = (status) => {
-        dispatch(updateIssueStatus({ id: issueId, status: status }));
+    const handleUpdateIssueStatus = async (status) => {
+        await dispatch(updateIssueStatus({id: issueId, status: status}));
         console.log(status);
+        await dispatch(fetchIssueById(issueId));
     }
     useEffect(() => {
         dispatch(fetchIssueById(issueId));
@@ -28,7 +29,7 @@ const IssueDetails = () => {
     }
 
     if (!issueDetails) {
-        return <div>No issue found.</div>; // Handle case where issue is not found
+        return <div>No issue found.</div>;
     }
     return (
         <div className="px-20 py-8 text-gray-400">
@@ -92,12 +93,17 @@ const IssueDetails = () => {
                             <div className="space-y-7">
                                 <div className="flex gap-10 items-center">
                                     <p className="w-[7rem]">Assignee</p>
-                                    <div className="flex items-center gap-3">
-                                        <Avatar className="h-8 w-8 text-xs">
-                                            <AvatarFallback>R</AvatarFallback>
-                                        </Avatar>
-                                        <p>Change it</p>
-                                    </div>
+                                        {issueDetails?.assignee ? <div className="flex items-center gap-3">
+                                                <Avatar className="h-8 w-8 text-xs">
+                                                    <AvatarFallback>{issueDetails.assignee[0]?.toUpperCase()}</AvatarFallback>
+                                                </Avatar>
+                                                <p>{issueDetails.assignee.fullName}</p>
+                                            </div> :
+                                            <div>
+                                                <p>unassigned</p>
+                                            </div>
+                                        }
+
                                 </div>
                                 <div className="flex gap-10 items-center">
                                     <p className="w-[7rem]">Labels</p>
@@ -133,7 +139,7 @@ const IssueDetails = () => {
                 </div>
             </div>
         </div>
-    );
+);
 };
 
 export default IssueDetails;

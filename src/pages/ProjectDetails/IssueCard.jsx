@@ -12,8 +12,8 @@ const IssueCard = ({item, projectId, onIssueDelete}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleIssueDelete =() =>{
-        dispatch(deleteIssue(item.id));
+    const handleIssueDelete=async()=>{
+        await dispatch(deleteIssue(item.id));
         dispatch(fetchIssuesByProjectId(projectId));
         onIssueDelete();
     };
@@ -56,7 +56,7 @@ const IssueCard = ({item, projectId, onIssueDelete}) => {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <UserList/>
+                            <UserList issueDetails={item}/>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
