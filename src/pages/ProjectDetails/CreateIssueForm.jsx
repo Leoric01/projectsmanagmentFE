@@ -5,12 +5,10 @@ import {Input} from "@/components/ui/input";
 import {DialogClose} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {useDispatch} from "react-redux";
-import {createIssue} from "@/Redux/Issue/Action.js";
-import {useParams} from "react-router-dom";
+import {createIssue} from "@/Redux/Issue/Action";
 
-const CreateIssueForm = ({projectId}) => {
+const CreateIssueForm = ({status, projectId}) => {
     const dispatch = useDispatch();
-    const {id} = useParams();
     const form = useForm({
         defaultValues: {
             issueName: "",
@@ -21,7 +19,8 @@ const CreateIssueForm = ({projectId}) => {
         dispatch(createIssue({
             title: data.issueName,
             description: data.description,
-            projectId: projectId
+            projectId: projectId,
+            status: status
         }));
         console.log("Create issue: ", data);
     };
@@ -61,7 +60,7 @@ const CreateIssueForm = ({projectId}) => {
                                    </FormItem>
                                )}
                     />
-                    <DialogClose>
+                    <DialogClose asChild>
                         <Button type="submit" className="w-full py-5">
                             Create Issue
                         </Button>

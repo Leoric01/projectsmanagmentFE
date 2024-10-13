@@ -36,7 +36,7 @@ const InviteUserForm = () => {
                                        </FormItem>
                                    )}
                         />
-                        <DialogClose>
+                        <DialogClose asChild>
                             <Button type="submit" className="w-full py-5">
                                 Invite User
                             </Button>

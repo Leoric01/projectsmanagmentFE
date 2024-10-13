@@ -6,24 +6,39 @@ import CommentCard from "@/pages/IssueDetails/commentcard";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Badge} from "@/components/ui/badge";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchIssueById, updateIssueStatus} from "@/Redux/Issue/action";
 
 
 const IssueDetails = () => {
+    const dispatch = useDispatch();
     const {projectId, issueId} = useParams();
+    const {issueDetails, loading} = useSelector((state) => state.issue);
+
     const handleUpdateIssueStatus = (status) => {
+        dispatch(updateIssueStatus({ id: issueId, status: status }));
         console.log(status);
+    }
+    useEffect(() => {
+        dispatch(fetchIssueById(issueId));
+    }, [dispatch, issueId]);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!issueDetails) {
+        return <div>No issue found.</div>; // Handle case where issue is not found
     }
     return (
         <div className="px-20 py-8 text-gray-400">
             <div className="flex justify-between border p-10 rounded-lg">
                 <ScrollArea className="h-[78vh] w-[70%]">
                     <div>
-                        <h1 className="text-lg font-semibold text-gray-400">create navbar</h1>
+                        <h1 className="text-lg font-semibold text-gray-400">{issueDetails?.title.toUpperCase()}</h1>
                         <div className="py-5">
                             <h2 className="font-semibold">Description</h2>
-                            <p className="text-sm text-gray-400 mt-3">afbjskalbgfjlskaddbgljasdbljkgbsdaljkbgjsdak;ljgb;sdakljgbk;
-                                sadjb s;kgjbdj;ksabg as;h
-                                sagp;gh spag hpas
+                            <p className="text-sm text-gray-400 mt-3">{issueDetails?.description}
                             </p>
                         </div>
                         <div className="mt-5">
@@ -93,7 +108,7 @@ const IssueDetails = () => {
                                 <div className="flex gap-10 items-center">
                                     <p className="w-[7rem]">Status</p>
                                     <div className="flex items-center gap-3">
-                                        <Badge>in_progress</Badge>
+                                        <Badge>{issueDetails.status}</Badge>
                                     </div>
                                 </div>
                                 <div className="flex gap-10 items-center">

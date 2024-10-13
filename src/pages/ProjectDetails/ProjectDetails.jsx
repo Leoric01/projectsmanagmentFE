@@ -8,19 +8,26 @@ import InviteUserForm from "./inviteUserForm";
 import IssueList from "@/pages/ProjectDetails/issuelist";
 import ChatBox from "@/pages/ProjectDetails/chatbox";
 import {useEffect} from "react";
-import {fetchProjectById} from "@/Redux/Project/Action.js";
+import {fetchProjectById} from "@/Redux/Project/Action";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {fetchIssuesByProjectId} from "@/Redux/Issue/Action";
 
 const ProjectDetails = () => {
     const dispatch = useDispatch();
-    const {id} = useParams();
-    const {project} = useSelector((state) => state.project);
+    const { id } = useParams();
+    const { project } = useSelector((state) => state.project);
     const handleProjectInvitation = () => {
 
     }
+
+    const fetchUpdatedIssues = () => {
+        dispatch(fetchIssuesByProjectId(id));
+    };
+
     useEffect(() => {
         dispatch(fetchProjectById(id));
+        fetchUpdatedIssues();
     }, [dispatch, id]);
     if (!project) {
         return <div>Loading...</div>;
@@ -34,9 +41,8 @@ const ProjectDetails = () => {
                             <h1 className="text-lg font-semibold pb-5">
                                 {project.name}
                             </h1>
-
-                            <div className="space-y-5 pb-10 text-sm">
-                                <p className="w-full md:max-w-lg lg:max-w-xl">{project.description}</p>
+                            <p className="w-full md:max-w-lg lg:max-w-xl">{project.description}</p>
+                            <div className="space-y-5 mt-5 pb-10 text-sm">
                                 <div className="flex">
                                     <p className="w-36">Project Lead: </p>
                                     <Badge>{project.owner.fullName.toUpperCase()}</Badge>
@@ -91,11 +97,24 @@ const ProjectDetails = () => {
                             <section>
                                 <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
                                 <div className="lg:flex md:flex gap-3 justify-normal py-5">
-
-                                    <IssueList status="pending" title="Todo List" projectId={id}/>
-                                    <IssueList status="inprogres" title="In Progress" projectId={id}/>
-                                    <IssueList status="done" title="Done" projectId={id}/>
-
+                                    <IssueList
+                                        status="todo"
+                                        title="Todo List"
+                                        projectId={id}
+                                        onIssueDelete={fetchUpdatedIssues}
+                                    />
+                                    <IssueList
+                                        status="inprogress"
+                                        title="In Progress"
+                                        projectId={id}
+                                        onIssueDelete={fetchUpdatedIssues}
+                                    />
+                                    <IssueList
+                                        status="done"
+                                        title="Done"
+                                        projectId={id}
+                                        onIssueDelete={fetchUpdatedIssues}
+                                    />
                                 </div>
                             </section>
                         </div>

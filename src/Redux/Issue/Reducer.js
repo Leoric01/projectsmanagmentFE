@@ -12,9 +12,9 @@ export const issueReducer = (state = initialState, action) => {
         case types.DELETE_ISSUE_REQUEST:
         case types.CREATE_ISSUE_REQUEST:
         case types.UPDATE_ISSUE_STATUS_REQUEST:
-        case types.FETCH_ISSUES_REQUEST:
+        case types.FETCH_ISSUES_BY_PROJECT_ID_REQUEST:
         case types.ASSIGNED_ISSUE_TO_USER_REQUEST:
-        case types.FETCH_ISSUES_BY_ID_REQUEST:
+        case types.FETCH_ISSUE_BY_ID_REQUEST:
         case types.UPDATE_ISSUE_REQUEST:
             return {
                 ...state,
@@ -22,13 +22,13 @@ export const issueReducer = (state = initialState, action) => {
                 error: null,
             }
 
-        case types.FETCH_ISSUES_SUCCESS:
+        case types.FETCH_ISSUES_BY_PROJECT_ID_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 issues: action.issues
             }
-        case types.FETCH_ISSUES_BY_ID_SUCCESS:
+        case types.FETCH_ISSUE_BY_ID_SUCCESS:
         case types.UPDATE_ISSUE_STATUS_SUCCESS:
         case types.UPDATE_ISSUE_SUCCESS:
             return {
@@ -57,15 +57,15 @@ export const issueReducer = (state = initialState, action) => {
         case types.DELETE_ISSUE_FAILURE:
         case types.CREATE_ISSUE_FAILURE:
         case types.UPDATE_ISSUE_STATUS_FAILURE:
-        case types.FETCH_ISSUES_FAILURE:
+        case types.FETCH_ISSUES_BY_PROJECT_ID_FAILURE:
         case types.ASSIGNED_ISSUE_TO_USER_FAILURE:
-        case types.FETCH_ISSUES_BY_ID_FAILURE:
+        case types.FETCH_ISSUE_BY_ID_FAILURE:
         case types.UPDATE_ISSUE_FAILURE:
             return {
-                state
+                ...state
             }
 
         default:
-            return state;
+            return {...state};
     }
 }

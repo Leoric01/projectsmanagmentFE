@@ -105,7 +105,6 @@ const CreateProjectForm = () => {
                                         onValueChange={(value) => {
                                             handleTagsChange(value)
                                         }}
-                                        // className="border w-full border-gray-700 py-5 px-5"
                                     >
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Tags..."/>
