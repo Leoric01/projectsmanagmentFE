@@ -25,9 +25,9 @@ const initialState = {
     projects: [],
     loading: false,
     error: null,
-    projectDetails: null,
+    project: null,
     searchProjects: []
-}
+};
 
 export const projectReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -43,32 +43,32 @@ export const projectReducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 error: null
-            }
+            };
         case FETCH_ALL_PROJECTS_REQUEST:
             return {...state, loading: true, error: null};
         case FETCH_ALL_PROJECTS_SUCCESS:
             return {...state, loading: false, projects: action.payload};
         case FETCH_ALL_PROJECTS_FAILURE:
-            return {...state, loading: false, error: action.payload}
+            return {...state, loading: false, error: action.payload};
         case FETCH_PROJECTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 projects: action.projects,
                 error: null
-            }
+            };
         case SEARCH_PROJECT_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 searchProjects: action.payload,
                 error: null
-            }
-        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS: // New success case
+            };
+        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                projects: action.payload, // Store new search results
+                projects: action.payload,
                 error: null
             };
         case CREATE_PROJECT_SUCCESS:
@@ -76,9 +76,9 @@ export const projectReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                projectDetails: action.project,
+                project: action.payload,
                 error: null
-            }
+            };
         case DELETE_PROJECT_SUCCESS:
             return {
                 ...state,
@@ -87,14 +87,14 @@ export const projectReducer = (state = initialState, action) => {
                     (project) => project.id !== action.projectId
                 ),
                 error: null
-            }
-        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE: // New failure case
+            };
+        case SEARCH_ALL_PROJECTS_WITH_KEYWORD_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.error // Store error message
+                error: action.error
             };
         default:
             return state;
     }
-}
+};

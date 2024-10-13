@@ -46,7 +46,6 @@ export const fetchProjects = ({category, tag}) => async (dispatch) => {
 export const fetchAllProjects = () => async (dispatch) => {
     dispatch({type: FETCH_ALL_PROJECTS_REQUEST});
     try {
-        const jwt = localStorage.getItem('jwt');
         const {data} = await api.get(`/api/projects/all`);
         dispatch({type: FETCH_ALL_PROJECTS_SUCCESS, payload: data});
     } catch (error) {
@@ -98,8 +97,8 @@ export const fetchProjectById = (id) => async (dispatch) => {
     dispatch({type: FETCH_PROJECT_BY_ID_REQUEST});
     try {
         const {data} = await api.get('/api/projects/' + id);
-        dispatch({type: FETCH_PROJECT_BY_ID_SUCCESS, project: data});
-        console.log("fetch project by id", data);
+        dispatch({type: FETCH_PROJECT_BY_ID_SUCCESS, payload: data});
+        console.log("fetch project by id", data.project);
     } catch (err) {
         console.error("Error fetching projects: ", err);
         dispatch({type: FETCH_PROJECT_BY_ID_FAILURE, error: err.message});

@@ -21,28 +21,32 @@ const ProjectDetails = () => {
     }
     useEffect(() => {
         dispatch(fetchProjectById(id));
-    }, [])
+    }, [dispatch, id]);
+    if (!project) {
+        return <div>Loading...</div>;
+    }
     return (
         <>
             <div className="mt-5 lg:px-8">
                 <div className="lg:flex gap-5 justify-between pb-4">
                     <ScrollArea className="h-screen lg:w-[70%] pr-2">
                         <div className="pb-10 w-full text-gray-400">
-                            <h1 className="text-lg font-semibold pb-5">Create Ecommerce Website</h1>
+                            <h1 className="text-lg font-semibold pb-5">
+                                {project.name}
+                            </h1>
 
                             <div className="space-y-5 pb-10 text-sm">
-                                <p className="w-full md:max-w-lg lg:max-w-xl">Lorem ipsum worrd jaskfbash
-                                    aksfjsanbgfka</p>
+                                <p className="w-full md:max-w-lg lg:max-w-xl">{project.description}</p>
                                 <div className="flex">
                                     <p className="w-36">Project Lead: </p>
-                                    <p>Johns Name</p>
+                                    <Badge>{project.owner.fullName.toUpperCase()}</Badge>
                                 </div>
                                 <div className="flex">
                                     <p className="w-36">Members: </p>
                                     <div className="flex items-center gap-2">
-                                        {[1, 2, 3, 4, 5].map((item) => (
+                                        {project.teamMembers.map((item) => (
                                             <Avatar key={item} className="cursor-pointer">
-                                                <AvatarFallback>Z</AvatarFallback>
+                                                <AvatarFallback>{item.fullName.charAt(0).toUpperCase()}</AvatarFallback>
                                             </Avatar>
                                         ))}
                                     </div>
@@ -64,16 +68,25 @@ const ProjectDetails = () => {
                                 </div>
                                 <div className="flex">
                                     <p className="w-36">Category: </p>
-                                    <p>FullStack</p>
+                                    <p>{project.category}</p>
                                 </div>
                                 <div className="flex">
                                     <p className="w-36">Status: </p>
-                                    <p> Pending </p>
+                                    <p>{project.status}</p>
                                 </div>
-                                <div className="flex">
-                                    <p className="w-36">Project Lead: </p>
-                                    <Badge>LEADER</Badge>
+                                <div>
+                                    <div className="flex">
+                                        <p className="w-36">Deployed at: </p>
+                                        {project.deployedUrl ? (
+                                            <Badge className="cursor-pointer">
+                                                <a href={project.deployedUrl}>Yes</a>
+                                            </Badge>
+                                        ) : (
+                                            <Badge>Not Yet</Badge>
+                                        )}
+                                    </div>
                                 </div>
+
                             </div>
                             <section>
                                 <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
