@@ -93,17 +93,16 @@ const IssueDetails = () => {
                             <div className="space-y-7">
                                 <div className="flex gap-10 items-center">
                                     <p className="w-[7rem]">Assignee</p>
-                                        {issueDetails?.assignee ? <div className="flex items-center gap-3">
-                                                <Avatar className="h-8 w-8 text-xs">
-                                                    <AvatarFallback>{issueDetails.assignee[0]?.toUpperCase()}</AvatarFallback>
-                                                </Avatar>
-                                                <p>{issueDetails.assignee.fullName}</p>
-                                            </div> :
-                                            <div>
-                                                <p>unassigned</p>
-                                            </div>
-                                        }
-
+                                    {issueDetails && issueDetails.assignee ? (<div className="flex items-center gap-3">
+                                        <Avatar className="h-8 w-8 text-xs">
+                                            <AvatarFallback>{issueDetails.assignee.username[0]?.toUpperCase()}</AvatarFallback>
+                                        </Avatar>
+                                        <p>{issueDetails.assignee.username}</p>
+                                    </div>) : (
+                                        <div>
+                                            <p>unassigned</p>
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="flex gap-10 items-center">
                                     <p className="w-[7rem]">Labels</p>
@@ -139,7 +138,7 @@ const IssueDetails = () => {
                 </div>
             </div>
         </div>
-);
+    );
 };
 
 export default IssueDetails;
