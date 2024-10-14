@@ -21,8 +21,6 @@ function App() {
         dispatch(getUser());
     }, [auth.jwt]);
 
-    console.log(auth);
-
     return (
         <>
             {

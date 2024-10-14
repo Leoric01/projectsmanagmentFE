@@ -11,7 +11,6 @@ const api = axios.create({
     }
 });
 
-// Add a request interceptor to inject JWT dynamically before each request
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem("jwt");
     if (token) {
@@ -22,15 +21,11 @@ api.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-// Add a response interceptor to handle errors globally (optional)
 api.interceptors.response.use(
-    (response) => response, // Just return the response if it's successful
-    (error) => {
+    (response) => response, (error) => {
         if (error.response?.status === 401) {
-            // Handle unauthorized errors globally, e.g., redirect to login
             console.log("Unauthorized, logging out...");
             localStorage.removeItem("jwt");
-            // You can also trigger a logout action or redirect the user
         }
         return Promise.reject(error);
     }

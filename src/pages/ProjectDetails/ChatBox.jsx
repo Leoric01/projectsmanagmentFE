@@ -3,13 +3,31 @@ import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {PaperPlaneIcon} from "@radix-ui/react-icons";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchChatByProject, fetchChatMessages, sendMessage} from "@/Redux/Chat/Action";
+import {useParams} from "react-router-dom";
+
 
 const ChatBox = () => {
-
+    const dispatch = useDispatch();
     const [message, setMessage] = useState("");
+    const auth = useSelector((state) => state.auth);
+    const {id} = useParams();
+    const {chat} = useSelector((state) => state.chat);
+
+    useEffect(() => {
+        dispatch(fetchChatByProject(id));
+    }, [chat?.id, dispatch, id]);
+
+    useEffect(() => {
+        if (chat?.id) {
+            dispatch(fetchChatMessages(chat.id));
+        }
+    }, [dispatch, chat]);
+
     const handleSendMessage = () => {
-        console.log("message", message);
+        dispatch(sendMessage({senderId: auth.user.id, projectId: id, content: message}));
     }
     const handleMessageChange = (e) => {
         setMessage(e.target.value);
@@ -19,26 +37,26 @@ const ChatBox = () => {
             <div className="border rounded-lg">
                 <h1 className="border-b p-5">Chat Box</h1>
                 <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
-                    {[1, 2, 3, 4].map((item, index) => (
+                    {chat?.messages.map((item, index) => (
                         index % 2 === 0 ? <div
                             className="flex gap-2 mb-2 justify-start"
                             key={item}>
                             <Avatar>
-                                <AvatarFallback>R</AvatarFallback>
+                                <AvatarFallback>{item.senderName.charAt(0).toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <div className="space-y-2 py-2 px-5 border rounded-ss-2xl rounded-e-xl">
-                                <p>Leo</p>
-                                <p className="text-gray-300">Change it</p>
+                                <p>{item.senderName}</p>
+                                <p className="text-gray-300">{item.content}</p>
                             </div>
                         </div> : <div
                             className="flex gap-2 mb-2 justify-end"
                             key={item}>
                             <div className="space-y-2 py-2 px-5 border rounded-se-2xl rounded-s-xl">
-                                <p>Mell</p>
-                                <p className="text-gray-300">Dont change it</p>
+                                <p>{item.senderName}</p>
+                                <p className="text-gray-300">{item.content}</p>
                             </div>
                             <Avatar>
-                                <AvatarFallback>R</AvatarFallback>
+                                <AvatarFallback>{item.senderName.charAt(0).toUpperCase()}</AvatarFallback>
                             </Avatar>
                         </div>
 
