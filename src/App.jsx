@@ -10,6 +10,7 @@ import Auth from "./pages/Auth/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "./Redux/Auth/Action";
 import UpgradeSuccess from "@/pages/Subscription/UpgradeSuccess";
+import AcceptInvitation from "@/pages/Project/AcceptInvitation.jsx";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/project/:projectId/issue/:issueId" element={<IssueDetails/>}/>
                         <Route path="/upgradeplan" element={<Subscription/>}/>
                         <Route path="/upgrade/success" element={<UpgradeSuccess/>}/>
+                        <Route path="/accept_invitation" element={<AcceptInvitation/>}/>
                     </Routes>
                 </div> : <Auth/>
             }

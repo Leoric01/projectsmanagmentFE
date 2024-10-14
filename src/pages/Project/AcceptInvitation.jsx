@@ -1,15 +1,19 @@
 import {Button} from "@/components/ui/button";
 import {useDispatch} from "react-redux";
 import {acceptInvitation} from "@/Redux/Project/Action";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 const AcceptInvitation = () => {
+    const location = useLocation();
     const dispatch = useDispatch();
-    const urlParams = new URLSearchParams();
-    const token = urlParams.get("token");
     const navigate = useNavigate();
     const handleAcceptInvitation= () => {
-        dispatch(acceptInvitation({invitationToken:token, navigate}));
+        const urlParams = new URLSearchParams(location.search);
+        const token = urlParams.get("token");
+        dispatch(acceptInvitation({token, navigate}));
+    }
+    const handleDeclineInvitation = () => {
+        navigate("/");
     }
     return (
         <div className="h-[85vh] flex flex-col justify-center items-center">
