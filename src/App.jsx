@@ -9,6 +9,7 @@ import Subscription from "@/pages/Subscription/subscription";
 import Auth from "./pages/Auth/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "./Redux/Auth/Action";
+import UpgradeSuccess from "@/pages/Subscription/UpgradeSuccess";
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/project/:id" element={<ProjectDetails/>}/>
                         <Route path="/project/:projectId/issue/:issueId" element={<IssueDetails/>}/>
-                        <Route path="/upgrade_plan" element={<Subscription/>}/>
+                        <Route path="/upgradeplan" element={<Subscription/>}/>
+                        <Route path="/upgrade/success" element={<UpgradeSuccess/>}/>
                     </Routes>
                 </div> : <Auth/>
             }

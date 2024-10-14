@@ -40,7 +40,7 @@ const UserList = ({issueDetails}) => {
             )}
 
             {project.teamMembers.map((item) => (
-                item.id !== issueDetails.assignee?.id && (  // Exclude the currently assigned user
+                item.id !== issueDetails.assignee?.id && (
                     <div
                         onClick={() => handleAssignIssueToUser(item.id)}
                         key={item.id}

@@ -1,4 +1,6 @@
 import SubscriptionCard from "@/pages/Subscription/subscriptioncard";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const monthlyPlan = [
     "Add unlimited project",
@@ -32,6 +34,9 @@ const freePlan = [
     "Basic Access Control",
 ];
 const Subscription = () => {
+    const {subscription} = useSelector((state) => state.subscription);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <div className="p-10 ">
             <h1 className="text-5xl font-semibold py-5 pb-16 text-center">Pricing</h1>
@@ -42,7 +47,7 @@ const Subscription = () => {
                         features: freePlan,
                         planType: "FREE",
                         price: 0,
-                        buttonName: true ? "CurrentPlan" : "Get Started",
+                        buttonName: subscription?.userSubscription?.planType==="FREE" ? "CurrentPlan" : "Get Started"
                     }}
                 />
                 <SubscriptionCard
@@ -51,7 +56,7 @@ const Subscription = () => {
                         features: monthlyPlan,
                         planType: "MONTHLY",
                         price: 330,
-                        buttonName: true ? "CurrentPlan" : "Get Started",
+                        buttonName: subscription?.userSubscription?.planType==="MONTHLY" ? "CurrentPlan" : "Get Started",
                     }}
                 />
                 <SubscriptionCard
@@ -60,7 +65,7 @@ const Subscription = () => {
                         features: annualPlan,
                         planType: "ANNUALLY",
                         price: 2999,
-                        buttonName: true ? "CurrentPlan" : "Get Started",
+                        buttonName: subscription?.userSubscription?.planType==="ANNUALLY" ? "CurrentPlan" : "Get Started",
                     }}
                 />
             </div>
