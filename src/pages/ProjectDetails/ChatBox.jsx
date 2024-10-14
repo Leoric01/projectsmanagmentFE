@@ -28,6 +28,7 @@ const ChatBox = () => {
 
     const handleSendMessage = () => {
         dispatch(sendMessage({senderId: auth.user.id, projectId: id, content: message}));
+        setMessage("");
     }
     const handleMessageChange = (e) => {
         setMessage(e.target.value);
@@ -37,8 +38,8 @@ const ChatBox = () => {
             <div className="border rounded-lg">
                 <h1 className="border-b p-5">Chat Box</h1>
                 <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
-                    {chat?.messages.map((item, index) => (
-                        index % 2 === 0 ? <div
+                    {chat?.messages.map((item) => (
+                        item.senderId !== auth.user.id ? <div
                             className="flex gap-2 mb-2 justify-start"
                             key={item}>
                             <Avatar>
