@@ -57,8 +57,8 @@ const ProjectDetails = () => {
                                         ))}
                                     </div>
                                     <Dialog>
-                                        <DialogTrigger>
-                                            <DialogClose asChild>
+                                        <DialogTrigger >
+                                            <DialogClose >
                                                 <Button className="ml-2" size="sm" variant="outline"
                                                         onClick={handleProjectInvitation}>
                                                     <span>invite</span>

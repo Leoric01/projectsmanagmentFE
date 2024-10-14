@@ -15,7 +15,7 @@ const CreateCommentForm = ({issueId}) => {
     });
     const onSubmit = (data) => {
         dispatch(createComment({content:data.content, issueId}));
-        console.log("Create comment: ", data);
+        form.reset();
     };
     return (
         <div>
@@ -40,7 +40,6 @@ const CreateCommentForm = ({issueId}) => {
                                    </FormItem>
                                )}
                     />
-
                     <Button type="submit" className="px-5 py-5 rounded-b-md">
                         Save
                     </Button>
