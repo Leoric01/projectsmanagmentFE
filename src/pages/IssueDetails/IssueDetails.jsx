@@ -9,13 +9,14 @@ import {Badge} from "@/components/ui/badge";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchIssueById, updateIssueStatus} from "@/Redux/Issue/action";
+import {fetchComments} from "@/Redux/Comment/Action";
 
 
 const IssueDetails = () => {
     const dispatch = useDispatch();
     const {projectId, issueId} = useParams();
     const {issueDetails, loading} = useSelector((state) => state.issue);
-
+    const {comments} = useSelector((state) => state.comment);
     const handleUpdateIssueStatus = async (status) => {
         await dispatch(updateIssueStatus({id: issueId, status: status}));
         console.log(status);
@@ -23,6 +24,7 @@ const IssueDetails = () => {
     }
     useEffect(() => {
         dispatch(fetchIssueById(issueId));
+        dispatch(fetchComments(issueId))
     }, [dispatch, issueId]);
     if (loading) {
         return <div>Loading...</div>;
@@ -62,9 +64,10 @@ const IssueDetails = () => {
                                 <TabsContent value="comments">
                                     <CreateCommentForm issueId={issueId}/>
                                     <div className="mt-8 space-y-6">
-                                        {[1, 2, 3].map((item) => (
-                                                <CommentCard key={item}/>
-                                            )
+                                        {comments && comments.length > 0 ? (
+                                            comments.map((item) => <CommentCard item={item} key={item.id}/>)
+                                        ) : (
+                                            <p>No comments yet. Be the first to add one!</p>
                                         )}
                                     </div>
                                 </TabsContent>
@@ -100,7 +103,7 @@ const IssueDetails = () => {
                                         <p>{issueDetails.assignee.username}</p>
                                     </div>) : (
                                         <div>
-                                            <p>unassigned</p>
+                                            <p>Unassigned</p>
                                         </div>
                                     )}
                                 </div>

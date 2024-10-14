@@ -6,7 +6,7 @@ import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import UserList from "@/pages/ProjectDetails/userlist";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {deleteIssue, fetchIssuesByProjectId} from "@/Redux/Issue/Action.js";
+import {deleteIssue, fetchIssuesByProjectId} from "@/Redux/Issue/action";
 
 const IssueCard = ({item, projectId, onIssueDelete}) => {
     const navigate = useNavigate();
