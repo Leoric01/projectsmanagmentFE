@@ -1,4 +1,4 @@
-import * as types from "src/Redux/Comment/ActionType";
+import * as types from "../Comment/ActionType";
 
 const initialState = {
   comments: [],

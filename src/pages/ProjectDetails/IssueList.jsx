@@ -6,7 +6,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import CreateIssueForm from "@/pages/ProjectDetails/CreateIssueForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchIssuesByProjectId } from "@/Redux/Issue/action";
+import { fetchIssuesByProjectId } from "@/Redux/Issue/Action";
 
 const IssueList = ({ title, status, projectId }) => {
   const dispatch = useDispatch();

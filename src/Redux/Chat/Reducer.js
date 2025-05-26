@@ -1,4 +1,4 @@
-import * as types from "src/Redux/Chat/ActionType";
+import * as types from "../Chat/ActionType";
 
 const initialState = {
   messages: [],
