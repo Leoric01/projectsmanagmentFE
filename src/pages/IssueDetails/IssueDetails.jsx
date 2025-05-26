@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchIssueById, updateIssueStatus } from "@/Redux/Issue/action";
+import { fetchIssueById, updateIssueStatus } from "@/Redux/Issue/Action";
 import { fetchComments } from "@/Redux/Comment/Action";
 import { fetchProjectById } from "@/Redux/Project/Action";
 

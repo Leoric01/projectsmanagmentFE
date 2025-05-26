@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { fetchProjectById } from "@/Redux/Project/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchIssuesByProjectId } from "@/Redux/Issue/action";
+import { fetchIssuesByProjectId } from "@/Redux/Issue/Action";
 
 const ProjectDetails = () => {
   const dispatch = useDispatch();
