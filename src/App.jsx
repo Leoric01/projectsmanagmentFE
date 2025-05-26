@@ -16,7 +16,7 @@ function App() {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
 
-  const auth = useSelector((state) => state.auth); //
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getUser());
