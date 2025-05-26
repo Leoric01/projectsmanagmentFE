@@ -39,6 +39,7 @@ const Signup = () => {
 
     if (result.success) {
       navigate("/login");
+    } else {
       setError(result.error || "Registration failed.");
     }
   };
