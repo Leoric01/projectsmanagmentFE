@@ -11,7 +11,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
+  const [success, setSuccess] = useState("");
   const form = useForm({
     defaultValues: {
       email: "",
@@ -38,15 +38,18 @@ const Signup = () => {
     const result = await dispatch(registerUser(userData));
 
     if (result.success) {
-      navigate("/login");
+      setSuccess("Registration successful! You can now log in.");
+      setError("");
+      form.reset();
     } else {
       setError(result.error || "Registration failed.");
+      setSuccess("");
     }
   };
-
   return (
     <div className="space-y-5">
       <h1>Register</h1>
+      {success && <p className="text-green-500">{success}</p>}
       {error && <p className="text-red-500">{error}</p>}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
